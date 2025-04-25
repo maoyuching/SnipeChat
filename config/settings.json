@@ -1,0 +1,6 @@
+{
+    "api_key": "sk-ajfsxvsfseqdkknlyiilbbfugrmocinwyzuxaskqazwxqbhj",
+    "api_base": "https://api.siliconflow.cn/v1/chat/completions",
+    "model": "Qwen/Qwen2.5-VL-72B-Instruct",
+    "hotkey": "Ctrl+Alt+S"
+}
