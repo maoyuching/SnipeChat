@@ -35,12 +35,25 @@ class Worker(QThread):
             # 准备消息
             messages = [
                 {
+                    "role": "system",
+                    "content": "你是一个聊天助手，帮助用户给出回答" + '; 以下是预先知识:' + self.config_manager.get('knowledge')
+
+                },
+                {
+                    "role": "user",
+                    "content": "根据截图回复"
+                },
+                {
+                    "role": "assistant",
+                    "content": "卧槽，666！"
+                },
+                {
                     "role": "user",
                     "content": [
                         {
                             "type": "image_url",
                             "image_url": {
-                                "url" :f"data:image/png;base64,{self.image_data}",
+                                "url": f"data:image/png;base64,{self.image_data}",
                                 "detail": "high"
                             }
                         },
@@ -109,8 +122,13 @@ class ScreenshotTool(QWidget):
         try:
             screenshot = pyautogui.screenshot()
             buffered = io.BytesIO()
-            screenshot.save(buffered, format="PNG")
+            # 优化 PNG 保存设置
+            screenshot.save(buffered, format="PNG", optimize=True, compress_level=9)
+
             img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
+            # 清理内存
+            del screenshot
+            del buffered
             
             self.worker = Worker(img_str)
             self.worker.finished.connect(self.handle_ai_response)
