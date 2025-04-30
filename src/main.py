@@ -83,7 +83,7 @@ class ScreenshotTool(QWidget):
         self.config_manager = ConfigManager()
 
         self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(QIcon("icon.png"))
+        self.tray_icon.setIcon(QIcon("../icons/icon.png"))
 
         tray_menu = QMenu()
         
